@@ -35,22 +35,22 @@ app.use(
     pathRewrite: { "^/": "/" },
     secure: true,
     onProxyReq: (proxyReq, req, res) => {
-      console.log("➡️  Requête proxy pour :", req.url);
+      console.log("➡️  Proxy request for:", req.url);
       proxyReq.setHeader("Host", "cdn.discordapp.com");
       proxyReq.setHeader("User-Agent", "Mozilla/5.0 (compatible; DiscordCDNProxy/1.0)");
       proxyReq.setHeader("Accept", "*/*");
-      proxyReq.setHeader("Accept-Encoding", "identity"); // Évite gzip si pas géré
+      proxyReq.setHeader("Accept-Encoding", "identity"); 
     },
     onError: (err, req, res) => {
-      console.error("❌ Erreur proxy :", err);
+      console.error("❌ Proxy error:", err);
       res.writeHead(500, { "Content-Type": "text/plain" });
-      res.end("Erreur du proxy Discord");
+      res.end("Error discord proxy!");
     },
   })
 );
 
 app.listen(3000, () => {
-  console.log("✅ Proxy Discord en écoute sur http://localhost:3000");
+  console.log("✅ Proxy Discord listen on http://localhost:3000");
 });
 ```
 
@@ -69,8 +69,8 @@ sudo certbot --nginx -d www.cdn.mywebsite.com
 
 ## Redirect with nginx
 
-use `sudo nano /etc/nginx/sites-available/discord-cdn`
-Paste this:
+Use `sudo nano /etc/nginx/sites-available/discord-cdn`
+Paste this: (don't forget to update the links!)
 ```
 server {
     listen 443 ssl;
